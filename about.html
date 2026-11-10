@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#5B4BE8">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%235B4BE8'/%3E%3Ctext x='32' y='45' font-size='38' font-weight='700' text-anchor='middle' fill='white' font-family='sans-serif'%3EC%3C/text%3E%3C/svg%3E">
+  <!-- 部署版引用压缩资源；带完整注释的可读源文件为 css/style.css 与 js/script.js，
+       由 build_assets.py 生成压缩产物，便于课堂评审时对照阅读。 -->
+  <meta name="description" content="关于本站：全站组件复用与响应式适配的实现说明。">
+  <title>关于本站 · 陈同学的个人主页</title>
+  <link rel="stylesheet" href="css/style.min.css">
+  <script src="js/script.min.js" defer></script>
+</head>
+<body data-page="about" id="top">
+  <a class="skip-link" href="#main">跳转到正文</a>
+
+  <!-- BEGIN AUTO-INJECT: header -->
+  <!--
+    组件：SiteHeader（L2 全站组件）
+    源文件：components/header.html
+    语义：header 标签承载品牌区与导航容器，导航本体由 @slot:nav 注入 MainNav 组件。
+    用法：本文件是 HTML 片段，由 build.py 注入各页面的 AUTO-INJECT 区块。
+          禁止在页面里直接改写这段结构；改此处后运行 `python build.py` 即可全站同步。
+    注意：请勿在 IDE 里单独「运行到浏览器」预览本文件，片段中的相对链接会被解析到
+          components/ 目录下从而 404；预览请打开站点根目录的 index.html。
+  -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="index.html" aria-label="陈同学的个人主页，返回首页">
+        <span class="brand__mark" aria-hidden="true">陈</span>
+        <span class="brand__text">
+          <strong>陈同学</strong>
+          <small>前端开发 · 个人主页</small>
+        </span>
+      </a>
+
+      <!--
+        组件：MainNav（L2 全站组件）
+        源文件：components/nav.html
+        语义：nav 标签包裹 ul 列表；主导航固定五项，顺序与页面滚动顺序一致。
+        无障碍：aria-label 说明用途；汉堡按钮用原生 button 元素并提供 aria-controls / aria-expanded；
+                当前区块由 script.js 写入 aria-current="location"。
+        渐进增强：未启用 JavaScript 时按钮隐藏、列表以可换行的行内列表完整呈现，内容不丢失。
+        注意：本文件是片段，请勿在 IDE 里单独预览（相对链接会指向 components/ 导致 404）；
+              预览请打开站点根目录的 index.html。
+      -->
+      <nav class="site-nav" aria-label="主导航">
+        <button class="site-nav__toggle" type="button" aria-controls="siteNavList" aria-expanded="false" aria-label="展开导航菜单">
+          <span class="site-nav__bars" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span class="site-nav__toggle-text">菜单</span>
+        </button>
+        <ul class="site-nav__list" id="siteNavList">
+          <li class="site-nav__item"><a class="site-nav__link" href="index.html#home" data-anchor="home">首页</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="index.html#about" data-anchor="about">关于我</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="index.html#skills" data-anchor="skills">技能</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="index.html#projects" data-anchor="projects">作品</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="index.html#contact" data-anchor="contact">联系</a></li>
+        </ul>
+      </nav>
+
+      <a class="btn btn--primary site-header__cta" href="index.html#contact">联系我</a>
+    </div>
+  </header>
+  <!-- END AUTO-INJECT -->
+
+  <main id="main">
+    <section class="section" id="about-site" aria-labelledby="about-site-title">
+      <div class="container">
+        <h1 class="section__title" id="about-site-title">关于本站</h1>
+        <p class="section__lead">本页是「组件复用性」的验证页：没有复制任何一行页头或页脚代码，只引用与首页完全相同的 css/style.css 和 js/script.js。页头、导航、页脚由 build.py 从 components/ 目录统一注入，因此在任意数量的页面上表现一致。</p>
+        <p class="section__lead">请对比本页与 index.html 的页头、导航与页脚；在浏览器开发者工具（F12）的设备模式下切换 375px 与 1440px，两页的汉堡菜单行为也应完全一致。</p>
+        <p><a class="btn btn--ghost" href="index.html">返回首页</a></p>
+      </div>
+    </section>
+
+    <section class="section section--alt" id="implementation" aria-labelledby="implementation-title">
+      <div class="container">
+        <h2 class="section__title" id="implementation-title">执行步骤对照</h2>
+        <p class="section__lead">按任务拆解的四个步骤落地，每步均可在源码中找到对应文件。</p>
+        <ol class="timeline">
+          <li class="timeline__item">
+            <strong>第 1 步｜搭建 HTML 骨架</strong>
+            <p>components/header.html、nav.html、footer.html 使用 header / nav / footer 语义标签，导航用 ul 列表，无多余 div 嵌套，缩进统一为两个空格。</p>
+          </li>
+          <li class="timeline__item">
+            <strong>第 2 步｜编写共享样式表</strong>
+            <p>css/style.css 以 * { margin: 0; padding: 0; box-sizing: border-box; } 开头做全局重置，页头与导航用 Flexbox 的 space-between / align-items 对齐，颜色统一由 --primary-color 等 CSS 自定义属性管理。</p>
+          </li>
+          <li class="timeline__item">
+            <strong>第 3 步｜实现响应式与交互</strong>
+            <p>js/script.js 通过 classList.toggle('is-open') 控制菜单显隐，监听窗口变化与断点切换；点击外部、按 Esc、点击链接均会收起菜单，并同步 aria-expanded。</p>
+          </li>
+          <li class="timeline__item">
+            <strong>第 4 步｜全站联调与测试</strong>
+            <p>组件由 build.py 注入 index.html 与本页，页头页脚显示一致；已在 375px / 1440px 两种宽度与多个页面下检查布局与控制台。</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" id="consistency" aria-labelledby="consistency-title">
+      <div class="container">
+        <h2 class="section__title" id="consistency-title">一致性核对要点</h2>
+        <div class="grid grid--cards">
+          <article class="card">
+            <h3 class="card__title">单一数据源</h3>
+            <p class="card__text">页头、导航、页脚各只有一份源文件。修改组件后运行 python build.py，所有页面同步更新，杜绝逐页手改造成的不一致。</p>
+          </article>
+          <article class="card">
+            <h3 class="card__title">样式与脚本完全独立</h3>
+            <p class="card__text">页面不含任何 inline style 与内联事件，脚本统一用 defer 引入；新增页面只需复制页面骨架，无需改动 CSS 或 JS。</p>
+          </article>
+          <article class="card">
+            <h3 class="card__title">渐进增强</h3>
+            <p class="card__text">关闭 JavaScript 时，导航按钮隐藏、菜单以可换行列表完整呈现，正文与全部链接仍可正常访问。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- BEGIN AUTO-INJECT: footer -->
+  <!--
+    组件：SiteFooter（L2 全站组件）
+    源文件：components/footer.html
+    语义：footer 标签承载版权与页脚导航；页脚导航用带 aria-label 的 nav 标签标注，链接文字说明去向。
+    说明：[data-year] 由 script.js 写入当前年份，避免每年手工修改。
+    注意：本文件是片段，请勿在 IDE 里单独预览（相对链接会指向 components/ 导致 404）；
+          预览请打开站点根目录的 index.html。
+  -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p class="site-footer__copy">&copy; <span data-year>2026</span> 陈同学 · 个人主页。保留所有权利。</p>
+      <nav class="site-footer__nav" aria-label="页脚导航">
+        <ul class="site-footer__links">
+          <li><a href="index.html#home">返回首页</a></li>
+          <li><a href="about.html">关于本站</a></li>
+          <li><a href="index.html#contact">联系方式</a></li>
+        </ul>
+      </nav>
+      <p class="site-footer__note">遵循 WCAG 2.1 AA 对比度与键盘可达要求</p>
+    </div>
+  </footer>
+  <!-- END AUTO-INJECT -->
+</body>
+</html>

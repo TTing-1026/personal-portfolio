@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>组件源码目录 · 请返回站点主页</title>
+  <!--
+    说明页（非作业必交组件、非站点页面）
+    用途：components/ 下三个 .html 是供 build.py 注入的 HTML 片段，不是可独立打开的页面。
+          若从 IDE（如 HBuilderX）单独预览这里的文件，相对路径 css/ js/ index.html
+          会全部解析到 components/ 目录下，从而出现 404。本页用于兜底并给出正确入口。
+    本页不参与 build.py 同步（脚本只扫描站点根目录的 *.html）。
+  -->
+  <style>
+    :root { --primary: #5B4BE8; --ink: #1A1A1A; --muted: #4A5568; --line: #DDE2EC; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: "Microsoft YaHei", "PingFang SC", sans-serif; color: var(--ink);
+           background: #F7F8FC; line-height: 1.7; padding: 48px 20px; }
+    .box { max-width: 760px; margin: 0 auto; background: #fff; border: 1px solid var(--line);
+           border-radius: 14px; padding: 40px 44px; box-shadow: 0 8px 28px rgba(26,26,26,.06); }
+    .tag { display: inline-block; font-size: 13px; letter-spacing: .08em; color: var(--primary);
+           background: #F0EEFF; border-radius: 999px; padding: 4px 14px; margin-bottom: 18px; }
+    h1 { font-size: 26px; margin-bottom: 12px; }
+    p { color: var(--muted); margin-bottom: 14px; }
+    .warn { background: #FFF7ED; border-left: 4px solid #B45309; padding: 14px 18px;
+            border-radius: 0 8px 8px 0; margin: 22px 0; font-size: 14px; color: #7C2D12; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 26px 0 30px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px;
+           padding: 10px 22px; border-radius: 8px; font-size: 15px; text-decoration: none;
+           font-weight: 600; }
+    .btn--primary { background: var(--primary); color: #fff; }
+    .btn--ghost { border: 1px solid var(--line); color: var(--muted); background: #fff; }
+    a:focus-visible, .btn:focus-visible { outline: 3px solid var(--primary); outline-offset: 3px; }
+    h2 { font-size: 17px; margin: 26px 0 10px; padding-bottom: 8px; border-bottom: 2px solid var(--line); }
+    ul { padding-left: 22px; color: var(--muted); font-size: 14px; }
+    li { margin: 6px 0; }
+    code { font-family: Consolas, monospace; font-size: 13px; background: #F1F3F8;
+           padding: 2px 6px; border-radius: 4px; color: #4338CA;
+           word-break: normal; overflow-wrap: anywhere; }
+    .url { display: block; background: #F7F8FC; border: 1px solid var(--line); border-radius: 8px;
+           padding: 12px 16px; font-size: 13px; margin: 8px 0 18px; }
+    footer { margin-top: 30px; font-size: 13px; color: #6B7280; }
+  </style>
+</head>
+<body>
+  <main class="box">
+    <span class="tag">components / 组件源码目录</span>
+    <h1>这里是组件片段，不是页面入口</h1>
+    <p>本目录存放 <strong>header.html、nav.html、footer.html</strong> 三个语义化组件源码。它们是供
+       <code>build.py</code> 注入到页面里的 HTML <strong>片段</strong>，本身不包含
+       <code>&lt;html&gt;</code>、<code>&lt;head&gt;</code> 骨架，也不引用样式表与脚本。</p>
+
+    <div class="warn">
+      <strong>为什么会出现 404？</strong><br>
+      从 IDE（例如 HBuilderX 的「运行到浏览器」）单独预览 <code>components/</code> 里的文件时，
+      片段中的相对链接 <code>index.html#home</code> 会被解析成
+      <code>components/index.html#home</code> —— 而这个目录并没有 <code>index.html</code>，于是报 404。
+      同理，<code>css/style.css</code> 与 <code>js/script.js</code> 在该目录下也加载不到。
+    </div>
+
+    <div class="actions">
+      <a class="btn btn--primary" href="../index.html">打开站点主页 →</a>
+      <a class="btn btn--ghost" href="../about.html">查看第二页 about.html</a>
+    </div>
+
+    <h2>正确的访问地址</h2>
+    <p>请打开<strong>站点根目录</strong>下的 <code>index.html</code>（注意路径里没有 <code>components/</code>）：</p>
+    <span class="url">HBuilderX 内置服务器：<code>http://127.0.0.1:8848/组件开发与样式统一_提交包/index.html</code></span>
+    <span class="url">自建服务器：<code>http://localhost:8000/index.html</code></span>
+    <span class="url">最简方式：直接双击 <code>index.html</code>（纯静态，file:// 下可完整运行）</span>
+
+    <h2>本目录文件</h2>
+    <ul>
+      <li><a href="header.html">header.html</a> — SiteHeader 组件（品牌区 + <code>@slot:nav</code>）</li>
+      <li><a href="nav.html">nav.html</a> — MainNav 组件（五项锚点导航 + 汉堡按钮）</li>
+      <li><a href="footer.html">footer.html</a> — SiteFooter 组件（版权 + 页脚导航）</li>
+      <li><a href="index.html">index.html</a> — 本说明页（兜底引导，不属于作业组件）</li>
+    </ul>
+    <p style="margin-top:16px">修改组件后请在站点根目录执行 <code>python build.py</code>，所有页面会自动同步。</p>
+
+    <footer>《组件开发与样式统一》提交包 · 组件源码目录 · 陶成蹊（负责）</footer>
+  </main>
+</body>
+</html>

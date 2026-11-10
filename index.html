@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#5B4BE8">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%235B4BE8'/%3E%3Ctext x='32' y='45' font-size='38' font-weight='700' text-anchor='middle' fill='white' font-family='sans-serif'%3EC%3C/text%3E%3C/svg%3E">
+  <!-- 部署版引用压缩资源；带完整注释的可读源文件为 css/style.css 与 js/script.js，
+       由 build_assets.py 生成压缩产物，便于课堂评审时对照阅读。 -->
+  <meta name="description" content="陈同学的个人主页：关于我、技能、作品与联系方式，演示全站统一组件。">
+  <title>陈同学 · 个人主页</title>
+  <link rel="stylesheet" href="css/style.min.css">
+  <script src="js/script.min.js" defer></script>
+</head>
+<body data-page="home" id="top">
+  <a class="skip-link" href="#main">跳转到正文</a>
+
+  <!-- BEGIN AUTO-INJECT: header -->
+  <!--
+    组件：SiteHeader（L2 全站组件）
+    源文件：components/header.html
+    语义：header 标签承载品牌区与导航容器，导航本体由 @slot:nav 注入 MainNav 组件。
+    用法：本文件是 HTML 片段，由 build.py 注入各页面的 AUTO-INJECT 区块。
+          禁止在页面里直接改写这段结构；改此处后运行 `python build.py` 即可全站同步。
+    注意：请勿在 IDE 里单独「运行到浏览器」预览本文件，片段中的相对链接会被解析到
+          components/ 目录下从而 404；预览请打开站点根目录的 index.html。
+  -->
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="index.html" aria-label="陈同学的个人主页，返回首页">
+        <span class="brand__mark" aria-hidden="true">陈</span>
+        <span class="brand__text">
+          <strong>陈同学</strong>
+          <small>前端开发 · 个人主页</small>
+        </span>
+      </a>
+
+      <!--
+        组件：MainNav（L2 全站组件）
+        源文件：components/nav.html
+        语义：nav 标签包裹 ul 列表；主导航固定五项，顺序与页面滚动顺序一致。
+        无障碍：aria-label 说明用途；汉堡按钮用原生 button 元素并提供 aria-controls / aria-expanded；
+                当前区块由 script.js 写入 aria-current="location"。
+        渐进增强：未启用 JavaScript 时按钮隐藏、列表以可换行的行内列表完整呈现，内容不丢失。
+        注意：本文件是片段，请勿在 IDE 里单独预览（相对链接会指向 components/ 导致 404）；
+              预览请打开站点根目录的 index.html。
+      -->
+      <nav class="site-nav" aria-label="主导航">
+        <button class="site-nav__toggle" type="button" aria-controls="siteNavList" aria-expanded="false" aria-label="展开导航菜单">
+          <span class="site-nav__bars" aria-hidden="true"><span></span><span></span><span></span></span>
+          <span class="site-nav__toggle-text">菜单</span>
+        </button>
+        <ul class="site-nav__list" id="siteNavList">
+          <li class="site-nav__item"><a class="site-nav__link" href="index.html#home" data-anchor="home">首页</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="index.html#about" data-anchor="about">关于我</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="index.html#skills" data-anchor="skills">技能</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="index.html#projects" data-anchor="projects">作品</a></li>
+          <li class="site-nav__item"><a class="site-nav__link" href="index.html#contact" data-anchor="contact">联系</a></li>
+        </ul>
+      </nav>
+
+      <a class="btn btn--primary site-header__cta" href="index.html#contact">联系我</a>
+    </div>
+  </header>
+  <!-- END AUTO-INJECT -->
+
+  <main id="main">
+    <section class="hero" id="home" aria-labelledby="home-title">
+      <div class="container hero__inner">
+        <img class="hero__avatar hero__avatar--img" src="assets/avatar.svg" alt="陈同学的头像占位图" width="88" height="88" decoding="async">
+        <div class="hero__content">
+          <span class="hero__badge">前端开发 · 在校学生</span>
+          <h1 class="hero__title" id="home-title">你好，我是陈同学</h1>
+          <p class="hero__lead">专注语义化 HTML、现代 CSS 布局与可访问的交互实现。本页用于演示全站统一的 SiteHeader、MainNav、SiteFooter 组件，以及共享的 style.css 与 script.js。</p>
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="#projects">查看作品</a>
+            <a class="btn btn--ghost" href="about.html">关于本站</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about" aria-labelledby="about-title">
+      <div class="container">
+        <h2 class="section__title" id="about-title">关于我</h2>
+        <p class="section__lead">内容按 P0 / P1 / P2 优先级排布，与《需求洞察与架构设计》第五章的信息架构一致。</p>
+        <div class="grid grid--cards">
+          <article class="card">
+            <h3 class="card__title">专业背景</h3>
+            <p class="card__text">计算机相关专业在读，系统学习 Web 标准、CSS 布局与原生 JavaScript，重视代码规范与可访问性。</p>
+          </article>
+          <article class="card">
+            <h3 class="card__title">关注方向</h3>
+            <p class="card__text">组件化开发、响应式适配、语义化结构与 WCAG 基础检查，习惯先写设计说明再落地代码。</p>
+          </article>
+          <article class="card">
+            <h3 class="card__title">协作方式</h3>
+            <p class="card__text">使用 Git 约定式提交管理版本，组件数据驱动，新增内容只改数据、不改结构。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt" id="skills" aria-labelledby="skills-title">
+      <div class="container">
+        <h2 class="section__title" id="skills-title">技能</h2>
+        <p class="section__lead">技能分组使用列表表达，标签不依赖颜色单独表意，屏幕阅读器可直接读出文本内容。</p>
+        <ul class="tag-list">
+          <li class="tag-list__label">结构与标准</li>
+          <li class="tag">HTML5 语义化</li>
+          <li class="tag">BEM 命名</li>
+          <li class="tag">WCAG 2.1 AA</li>
+          <li class="tag">aria-current</li>
+        </ul>
+        <ul class="tag-list">
+          <li class="tag-list__label">样式与交互</li>
+          <li class="tag">CSS 自定义属性</li>
+          <li class="tag">Flexbox</li>
+          <li class="tag">Grid</li>
+          <li class="tag">移动优先响应式</li>
+          <li class="tag">原生 DOM 操作</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section" id="projects" aria-labelledby="projects-title">
+      <div class="container">
+        <h2 class="section__title" id="projects-title">作品</h2>
+        <p class="section__lead">三张卡片结构完全一致，仅内容数据不同，对应组件契约中「新增项目只改数据、不改结构」的验收点。</p>
+        <div class="grid grid--cards">
+          <article class="card">
+            <h3 class="card__title">需求洞察与架构设计</h3>
+            <p class="card__text">完成用户画像、MoSCoW 功能清单、WCAG 检查表、站点线框图与组件架构图，形成本项目的设计依据。</p>
+          </article>
+          <article class="card">
+            <h3 class="card__title">组件开发与样式统一</h3>
+            <p class="card__text">实现全站通用的页头、导航与页脚，配套共享样式表与脚本库，支持移动端汉堡菜单与跨页复用。</p>
+          </article>
+          <article class="card">
+            <h3 class="card__title">全站联调与兼容测试</h3>
+            <p class="card__text">在 375px 与 1440px 宽度下验证布局，使用开发者工具设备模式检查导航适配与控制台报错。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--alt" id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <h2 class="section__title" id="contact-title">联系方式</h2>
+        <p class="section__lead">以下为演示表单，用于验证 label for、必填校验与 aria-live 反馈；请替换为本人真实联系方式。</p>
+        <form class="contact__form" data-contact>
+          <div class="field">
+            <label for="visitor-name">你的称呼</label>
+            <input id="visitor-name" name="name" type="text" autocomplete="name" required aria-describedby="name-hint">
+            <p class="field__hint" id="name-hint">示例字段，接入真实表单时请一并修改提示文案。</p>
+          </div>
+          <div class="field">
+            <label for="visitor-message">留言内容</label>
+            <textarea id="visitor-message" name="message" rows="4" required></textarea>
+          </div>
+          <div>
+            <button class="btn btn--primary" type="submit">发送留言</button>
+          </div>
+          <p class="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- BEGIN AUTO-INJECT: footer -->
+  <!--
+    组件：SiteFooter（L2 全站组件）
+    源文件：components/footer.html
+    语义：footer 标签承载版权与页脚导航；页脚导航用带 aria-label 的 nav 标签标注，链接文字说明去向。
+    说明：[data-year] 由 script.js 写入当前年份，避免每年手工修改。
+    注意：本文件是片段，请勿在 IDE 里单独预览（相对链接会指向 components/ 导致 404）；
+          预览请打开站点根目录的 index.html。
+  -->
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <p class="site-footer__copy">&copy; <span data-year>2026</span> 陈同学 · 个人主页。保留所有权利。</p>
+      <nav class="site-footer__nav" aria-label="页脚导航">
+        <ul class="site-footer__links">
+          <li><a href="index.html#home">返回首页</a></li>
+          <li><a href="about.html">关于本站</a></li>
+          <li><a href="index.html#contact">联系方式</a></li>
+        </ul>
+      </nav>
+      <p class="site-footer__note">遵循 WCAG 2.1 AA 对比度与键盘可达要求</p>
+    </div>
+  </footer>
+  <!-- END AUTO-INJECT -->
+</body>
+</html>

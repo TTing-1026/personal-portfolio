@@ -1,0 +1,23 @@
+<!--
+  组件：MainNav（L2 全站组件）
+  源文件：components/nav.html
+  语义：nav 标签包裹 ul 列表；主导航固定五项，顺序与页面滚动顺序一致。
+  无障碍：aria-label 说明用途；汉堡按钮用原生 button 元素并提供 aria-controls / aria-expanded；
+          当前区块由 script.js 写入 aria-current="location"。
+  渐进增强：未启用 JavaScript 时按钮隐藏、列表以可换行的行内列表完整呈现，内容不丢失。
+  注意：本文件是片段，请勿在 IDE 里单独预览（相对链接会指向 components/ 导致 404）；
+        预览请打开站点根目录的 index.html。
+-->
+<nav class="site-nav" aria-label="主导航">
+  <button class="site-nav__toggle" type="button" aria-controls="siteNavList" aria-expanded="false" aria-label="展开导航菜单">
+    <span class="site-nav__bars" aria-hidden="true"><span></span><span></span><span></span></span>
+    <span class="site-nav__toggle-text">菜单</span>
+  </button>
+  <ul class="site-nav__list" id="siteNavList">
+    <li class="site-nav__item"><a class="site-nav__link" href="index.html#home" data-anchor="home">首页</a></li>
+    <li class="site-nav__item"><a class="site-nav__link" href="index.html#about" data-anchor="about">关于我</a></li>
+    <li class="site-nav__item"><a class="site-nav__link" href="index.html#skills" data-anchor="skills">技能</a></li>
+    <li class="site-nav__item"><a class="site-nav__link" href="index.html#projects" data-anchor="projects">作品</a></li>
+    <li class="site-nav__item"><a class="site-nav__link" href="index.html#contact" data-anchor="contact">联系</a></li>
+  </ul>
+</nav>

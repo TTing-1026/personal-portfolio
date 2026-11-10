@@ -1,0 +1,24 @@
+<!--
+  组件：SiteHeader（L2 全站组件）
+  源文件：components/header.html
+  语义：header 标签承载品牌区与导航容器，导航本体由 @slot:nav 注入 MainNav 组件。
+  用法：本文件是 HTML 片段，由 build.py 注入各页面的 AUTO-INJECT 区块。
+        禁止在页面里直接改写这段结构；改此处后运行 `python build.py` 即可全站同步。
+  注意：请勿在 IDE 里单独「运行到浏览器」预览本文件，片段中的相对链接会被解析到
+        components/ 目录下从而 404；预览请打开站点根目录的 index.html。
+-->
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="index.html" aria-label="陈同学的个人主页，返回首页">
+      <span class="brand__mark" aria-hidden="true">陈</span>
+      <span class="brand__text">
+        <strong>陈同学</strong>
+        <small>前端开发 · 个人主页</small>
+      </span>
+    </a>
+
+    <!-- @slot:nav -->
+
+    <a class="btn btn--primary site-header__cta" href="index.html#contact">联系我</a>
+  </div>
+</header>

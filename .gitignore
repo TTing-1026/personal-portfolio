@@ -1,0 +1,20 @@
+# 编辑器 / 系统
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+
+# Python 构建脚本缓存
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# 临时与日志
+*.log
+.tmp/
+node_modules/
+
+# 说明：css/*.min.css 与 js/*.min.js 是部署产物且被页面直接引用，
+# 属于必须提交的文件，故不加入忽略列表。
